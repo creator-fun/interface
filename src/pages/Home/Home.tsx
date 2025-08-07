@@ -41,10 +41,7 @@ const Home = () => {
     return (
         <div className="relative h-screen bg-black overflow-hidden">
             <HeaderMainLayout />
-            <div
-                ref={parentRef}
-                className="h-[calc(100vh-68px)] lg:hidden-scrollbar overflow-auto snap-y snap-mandatory"
-            >
+            <div ref={parentRef} className="h-full lg:hidden-scrollbar overflow-auto snap-y snap-mandatory">
                 <div
                     style={{
                         height: `${rowVirtualizer.getTotalSize()}px`,
