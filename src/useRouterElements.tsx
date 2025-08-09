@@ -9,11 +9,11 @@ function ProtectedRoute() {
     // const profile = useSetProfile((state) => state.profile);
     return true ? <Outlet /> : <Navigate to={'/login'} />;
 }
-function RejectedRoute() {
-    // const profile = useSetProfile((state) => state.profile);
+// function RejectedRoute() {
+//     // const profile = useSetProfile((state) => state.profile);
 
-    return !true ? <Outlet /> : <Navigate to={'/'} />;
-}
+//     return !true ? <Outlet /> : <Navigate to={'/'} />;
+// }
 
 const useRouterElements = () => {
     const routeElements = useRoutes([
