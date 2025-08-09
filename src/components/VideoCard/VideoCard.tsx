@@ -2,6 +2,8 @@ import type { VideoData } from '@/types/video';
 import { MessageCircle, Heart, Share, Bookmark, Play } from 'lucide-react';
 import { formatNumber } from '@/utils/utils';
 import { useEffect, useRef, useCallback, useState } from 'react';
+import CartDrawer from '@/pages/Home/components/CartDrawer/CartDrawer';
+import useVideoStore from '@/stores/video.store';
 
 interface VideoItemProps {
     video: VideoData;
@@ -14,7 +16,7 @@ const VideoItem = ({ video }: VideoItemProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [isPlaying, setIsPlaying] = useState<boolean>(true);
     const [isShowIconPlay, setIsShowIconPlay] = useState<boolean>(false);
-
+    const isMute = useVideoStore((state) => state.isMute);
     // Show controls temporarily
 
     // Handle play/pause functions
@@ -86,6 +88,16 @@ const VideoItem = ({ video }: VideoItemProps) => {
         };
     }, []);
 
+    useEffect(() => {
+        if (videoRef.current) {
+            if (isMute) {
+                videoRef.current.muted = false;
+            } else {
+                videoRef.current.muted = true;
+            }
+        }
+    }, [isMute]);
+
     return (
         <div ref={containerRef} className="relative flex items-center justify-center">
             {/* Video Background */}
@@ -94,7 +106,7 @@ const VideoItem = ({ video }: VideoItemProps) => {
             </div>
 
             {/* Video Placeholder */}
-            <div className="relative z-10 w-full h-full flex items-center justify-center">
+            <div className="relative z-10 w-full flex items-center justify-center">
                 <div
                     className="w-screen h-[calc(100vh-68px)] bg-black flex items-center justify-center text-white text-lg font-bold relative overflow-hidden cursor-pointer"
                     onClick={handlePlayPause}
@@ -186,7 +198,8 @@ const VideoItem = ({ video }: VideoItemProps) => {
             </div>
 
             {/* Bottom Content */}
-            <div className="absolute bottom-8 left-4 right-20 z-20">
+            <div className="absolute bottom-4 left-4 right-20 z-20">
+                <CartDrawer />
                 <div className="space-y-3">
                     <div className="flex items-center space-x-2">
                         <span className="text-white font-bold text-lg">{video.username}</span>

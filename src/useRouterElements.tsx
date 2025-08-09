@@ -1,7 +1,8 @@
 import { Navigate, Outlet, useRoutes } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import path from './constants/path';
-import Test from './pages/Test/Test';
+import Create from './pages/Create/Create';
+import MainLayout from './layouts/MainLayout/MainLayout';
 
 const Home = lazy(() => import('./pages/Home/Home'));
 
@@ -22,23 +23,26 @@ const useRouterElements = () => {
             element: <ProtectedRoute />,
             children: [
                 {
-                    path: path.home,
-                    element: (
-                        <Suspense>
-                            <Home />
-                        </Suspense>
-                    ),
+                    path: '',
+                    element: <MainLayout />,
+                    children: [
+                        {
+                            path: path.home,
+                            element: <Home />,
+                        },
+                        {
+                            path: path.create,
+                            element: (
+                                <Suspense>
+                                    <Create />
+                                </Suspense>
+                            ),
+                        },
+                    ],
                 },
             ],
         },
-        {
-            path: '/test',
-            element: (
-                <Suspense>
-                    <Test />
-                </Suspense>
-            ),
-        },
+
         // {
         //     path: '',
         //     element: <RejectedRoute />,

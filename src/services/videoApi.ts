@@ -61,6 +61,9 @@ const generateMockVideos = (page: number, limit: number = 10): VideoData[] => {
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const videoApi = {
+    // getCategories() {
+    //     return http.get<SuccessResponse<Category[]>>(URL);
+    // },
     async getVideos(page: number): Promise<VideoResponse> {
         console.log('page', page);
 

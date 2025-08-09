@@ -2,12 +2,14 @@ import { useEffect, useMemo, useRef } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useVideos } from '@/hooks/useVideos';
 import VideoItem from '@/components/VideoCard/VideoCard';
-import HeaderMainLayout from '@/layouts/components/HeaderMainLayout/HeaderMainLayout';
+import useVideoStore from '@/stores/video.store';
+import { Volume, Volume2 } from 'lucide-react';
 
 const Home = () => {
     const parentRef = useRef<HTMLDivElement>(null);
     const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } = useVideos();
-
+    const setIsMute = useVideoStore((state) => state.setIsMute);
+    const isMute = useVideoStore((state) => state.isMute);
     const allVideos = useMemo(() => {
         return data?.pages?.flatMap((page) => page.videos) ?? [];
     }, [data]);
@@ -16,7 +18,7 @@ const Home = () => {
     const rowVirtualizer = useVirtualizer({
         count: hasNextPage ? allVideos.length + 1 : allVideos.length,
         getScrollElement: () => parentRef.current,
-        estimateSize: () => window.innerHeight,
+        estimateSize: () => window.innerHeight - 68,
         overscan: 2,
     });
 
@@ -40,8 +42,16 @@ const Home = () => {
 
     return (
         <div className="relative h-screen bg-black overflow-hidden">
-            <HeaderMainLayout />
             <div ref={parentRef} className="h-full lg:hidden-scrollbar overflow-auto snap-y snap-mandatory">
+                <div className="absolute top-4 left-4 z-50">
+                    <button onClick={() => setIsMute(!isMute)}>
+                        {isMute ? (
+                            <Volume2 size={24} className="text-white" />
+                        ) : (
+                            <Volume size={24} className="text-white" />
+                        )}
+                    </button>
+                </div>
                 <div
                     style={{
                         height: `${rowVirtualizer.getTotalSize()}px`,
