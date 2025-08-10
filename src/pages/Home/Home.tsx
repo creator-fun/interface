@@ -4,6 +4,7 @@ import { useVideos } from '@/hooks/useVideos';
 import VideoItem from '@/components/VideoCard/VideoCard';
 import useVideoStore from '@/stores/video.store';
 import { Volume, Volume2 } from 'lucide-react';
+import LoadingPage from '@/components/LoadingPage/LoadingPage';
 
 const Home = () => {
     const parentRef = useRef<HTMLDivElement>(null);
@@ -40,9 +41,9 @@ const Home = () => {
 
     if (isLoading) {
         return (
-            <div className="h-screen bg-black flex items-center justify-center">
-                <div className="text-white text-lg">Loading videos...</div>
-            </div>
+            <>
+                <LoadingPage />
+            </>
         );
     }
 
