@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { X, ShoppingCart, Star, Heart, Store } from 'lucide-react';
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import PriceChart from '../PriceChart/PriceChart';
+import InfoTokenBuy from '../InfoTokenBuy/InfoTokenBuy';
 
 interface CartItem {
     id: string;
@@ -52,8 +53,7 @@ const CartDrawer = () => {
     return (
         <Sheet>
             <SheetTrigger className="mb-1 bg-black/25 flex items-center gap-2 text-white rounded-full text-xs py-1 px-2 shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300">
-                <ShoppingCart size={16} className="text-white" />
-                <span className="text-white text-xs">Mua Ngay</span>
+                <InfoTokenBuy />
             </SheetTrigger>
             <SheetContent side="bottom" className="w-screen z-[1000]">
                 <div className="bg-white h-[85vh]  w-full overflow-hidden flex flex-col">
@@ -82,11 +82,6 @@ const CartDrawer = () => {
                                         areaBottomColor: '#F23645', // Nến đỏ (giá giảm)
                                     }}
                                 />
-                                {/* <img
-                                    src={cartItem.image}
-                                    alt={cartItem.name}
-                                    className="object-cover block w-full h-[45vh]"
-                                /> */}
                             </div>
 
                             {/* Product Details */}

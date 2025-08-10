@@ -142,13 +142,13 @@ const VideoItem = ({ video }: VideoItemProps) => {
             </div>
 
             {/* Right Side Actions */}
-            <div className="absolute right-4 bottom-8 flex flex-col items-center space-y-6 z-20">
+            <div className="absolute right-4 bottom-8 flex flex-col items-center space-y-5 z-20">
                 {/* Avatar */}
                 <div className="relative">
                     <img
                         src={video.avatar}
                         alt={video.username}
-                        className="w-12 h-12 rounded-full border-2 border-white"
+                        className="w-10 h-10 rounded-full border-2 border-white"
                     />
                     <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
                         <span className="text-white text-xs">+</span>
@@ -157,9 +157,9 @@ const VideoItem = ({ video }: VideoItemProps) => {
 
                 {/* Like Button */}
                 <div className="flex flex-col items-center space-y-1">
-                    <button className="p-3 bg-black/20 rounded-full backdrop-blur-sm">
+                    <button>
                         <Heart
-                            size={28}
+                            size={26}
                             className={`${
                                 video.isLiked ? 'fill-red-500 text-red-500' : 'text-white'
                             } transition-colors`}
@@ -170,25 +170,25 @@ const VideoItem = ({ video }: VideoItemProps) => {
 
                 {/* Comment Button */}
                 <div className="flex flex-col items-center space-y-1">
-                    <button className="p-3 bg-black/20 rounded-full backdrop-blur-sm">
-                        <MessageCircle size={28} className="text-white" />
+                    <button>
+                        <MessageCircle size={26} className="text-white" />
                     </button>
                     <span className="text-white text-xs font-medium">{formatNumber(video.comments)}</span>
                 </div>
 
                 {/* Share Button */}
                 <div className="flex flex-col items-center space-y-1">
-                    <button className="p-3 bg-black/20 rounded-full backdrop-blur-sm">
-                        <Share size={28} className="text-white" />
+                    <button>
+                        <Share size={26} className="text-white" />
                     </button>
                     <span className="text-white text-xs font-medium">{formatNumber(video.shares)}</span>
                 </div>
 
                 {/* Bookmark Button */}
                 <div className="flex flex-col items-center space-y-1">
-                    <button className="p-3 bg-black/20 rounded-full backdrop-blur-sm">
+                    <button>
                         <Bookmark
-                            size={28}
+                            size={26}
                             className={`${
                                 video.isBookmarked ? 'fill-white text-white' : 'text-white'
                             } transition-colors`}
