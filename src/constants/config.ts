@@ -1,5 +1,5 @@
 const config = {
-    baseUrl: 'http://54.206.117.204:8080/',
+    baseUrl: 'https://backendtiktokpump.vuonghuuhung.com',
     maxSizeUploadAvatar: 26214400,
 };
 
