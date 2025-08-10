@@ -10,7 +10,7 @@ export interface VideoData {
     thumbnail: string;
     duration: number;
     createdAt: string;
-    hashtags: string[];
+    hashtags?: string[];
     isLiked: boolean;
     isBookmarked: boolean;
     isFollowing: boolean;
@@ -23,6 +23,8 @@ export interface VideoResponse {
 }
 
 export interface VideoFilters {
+    limit?: number;
+    cursor?: number;
     category?: string;
     trending?: boolean;
     following?: boolean;

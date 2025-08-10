@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { X, ShoppingCart, Star, Heart, Store } from 'lucide-react';
-
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import PriceChart from '../PriceChart/PriceChart';
 
 interface CartItem {
     id: string;
@@ -28,6 +28,19 @@ const mockCartItem: CartItem = {
     reviews: 7797,
     description: 'Áo thun kẻ cổ tàu Henley-Tee chất liệu Cotton basic phong cách Hàn Quốc',
 };
+
+const initialData = [
+    { open: 10, high: 10.63, low: 9.49, close: 9.55, time: 1642427876 },
+    { open: 9.55, high: 10.3, low: 9.42, close: 9.94, time: 1642514276 },
+    { open: 9.94, high: 10.17, low: 9.92, close: 9.78, time: 1642600676 },
+    { open: 9.78, high: 10.59, low: 9.18, close: 9.51, time: 1642687076 },
+    { open: 9.51, high: 10.46, low: 9.1, close: 10.17, time: 1642773476 },
+    { open: 10.17, high: 10.96, low: 10.16, close: 10.47, time: 1642859876 },
+    { open: 10.47, high: 11.39, low: 10.4, close: 10.81, time: 1642946276 },
+    { open: 10.81, high: 11.6, low: 10.3, close: 10.75, time: 1643032676 },
+    { open: 10.75, high: 11.6, low: 10.49, close: 10.93, time: 1643119076 },
+    { open: 10.93, high: 11.53, low: 10.76, close: 10.96, time: 1643205476 },
+];
 
 const CartDrawer = () => {
     const [cartItem] = useState<CartItem>(mockCartItem);
@@ -59,11 +72,21 @@ const CartDrawer = () => {
                     <div className="flex-1 overflow-y-auto bg-[#F5F5F5]">
                         <div className="flex flex-col h-full">
                             <div className="flex-shrink-0">
-                                <img
+                                <PriceChart
+                                    data={initialData}
+                                    colors={{
+                                        backgroundColor: '#181921', // Nền đen
+                                        lineColor: 'red', // Màu xanh lá cho đường
+                                        textColor: '#dbdbdb', // Text màu trắng
+                                        areaTopColor: '#089981', // Nến xanh lá (giá tăng)
+                                        areaBottomColor: '#F23645', // Nến đỏ (giá giảm)
+                                    }}
+                                />
+                                {/* <img
                                     src={cartItem.image}
                                     alt={cartItem.name}
                                     className="object-cover block w-full h-[45vh]"
-                                />
+                                /> */}
                             </div>
 
                             {/* Product Details */}

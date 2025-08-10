@@ -7,12 +7,18 @@ import { Volume, Volume2 } from 'lucide-react';
 
 const Home = () => {
     const parentRef = useRef<HTMLDivElement>(null);
-    const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } = useVideos();
+    const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } = useVideos({
+        limit: 5,
+    });
     const setIsMute = useVideoStore((state) => state.setIsMute);
     const isMute = useVideoStore((state) => state.isMute);
+
+    console.log('data', data);
+
     const allVideos = useMemo(() => {
-        return data?.pages?.flatMap((page) => page.videos) ?? [];
+        return data?.pages?.flatMap((page) => page.data.videos) ?? [];
     }, [data]);
+    console.log('allVideos', allVideos);
 
     // Virtual scrolling setup
     const rowVirtualizer = useVirtualizer({
@@ -72,7 +78,11 @@ const Home = () => {
                                     top: 0,
                                     left: 0,
                                     width: '100%',
-                                    height: `${virtualItem.size}px`,
+                                    height: `${
+                                        virtualItem.index === allVideos.length - 1
+                                            ? window.innerHeight
+                                            : virtualItem.size
+                                    }px`,
                                     transform: `translateY(${virtualItem.start}px)`,
                                 }}
                                 className="snap-start"

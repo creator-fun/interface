@@ -206,7 +206,7 @@ const VideoItem = ({ video }: VideoItemProps) => {
                     </div>
                     <p className="text-white text-sm leading-relaxed">{video.description}</p>
                     <div className="flex items-center space-x-2 flex-wrap">
-                        {video.hashtags.map((tag, tagIndex) => (
+                        {video?.hashtags?.map((tag, tagIndex) => (
                             <span key={tagIndex} className="text-white/80 text-xs">
                                 #{tag}
                             </span>

@@ -1,7 +1,7 @@
 import React, { forwardRef, useCallback, useRef } from 'react';
-import config from 'src/constants/config';
 import { Button } from '../ui/button';
 import { toast } from 'sonner';
+import config from '@/constants/config';
 
 interface Props {
     onChange?: (file?: File) => void;
@@ -17,7 +17,7 @@ const InputFile = forwardRef<HTMLInputElement, Props>(({ onChange }, ref) => {
                 fileFromLocal &&
                 (fileFromLocal.size >= config.maxSizeUploadAvatar || !fileFromLocal.type.includes('video'))
             ) {
-                toast.error('Dụng lượng file tối đa 100MB. Định dạng: MP4, MOV, AVI, WMV', {
+                toast.error('Dụng lượng file tối đa 25MB. Định dạng: MP4, MOV, AVI, WMV', {
                     position: 'top-right',
                 });
             } else {
@@ -56,8 +56,7 @@ const InputFile = forwardRef<HTMLInputElement, Props>(({ onChange }, ref) => {
 
                 <div>
                     <h3 className="text-xl font-semibold text-gray-800 mb-2">Chọn video để upload</h3>
-                    <p className="text-gray-500 mb-4">Kéo thả video vào đây hoặc click để chọn file</p>
-                    <Button className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700">
+                    <Button className="bg-gradient-to-r mt-2 from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700">
                         <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path
                                 strokeLinecap="round"
