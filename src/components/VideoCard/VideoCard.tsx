@@ -76,6 +76,7 @@ const VideoItem = ({ video }: VideoItemProps) => {
         const video = videoRef.current;
         if (!video) return;
 
+        video.muted = true;
         const handlePlay = () => setIsPlaying(true);
         const handlePause = () => setIsPlaying(false);
 
