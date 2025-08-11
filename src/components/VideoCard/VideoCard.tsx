@@ -93,9 +93,6 @@ const VideoItem = ({ video }: VideoItemProps) => {
         if (videoRef.current) {
             if (isMute) {
                 videoRef.current.muted = false;
-                videoRef.current.play().catch((err) => {
-                    console.log('Play failed:', err);
-                });
             } else {
                 videoRef.current.muted = true;
             }
