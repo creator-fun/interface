@@ -109,7 +109,7 @@ const VideoItem = ({ video }: VideoItemProps) => {
             {/* Video Placeholder */}
             <div className="relative z-10 w-full flex items-center justify-center">
                 <div
-                    className="w-screen h-[calc(100vh-68px)] bg-black flex items-center justify-center text-white text-lg font-bold relative overflow-hidden cursor-pointer"
+                    className="w-screen h-screen-video bg-black flex items-center justify-center text-white text-lg font-bold relative overflow-hidden cursor-pointer"
                     onClick={handlePlayPause}
                     onMouseEnter={() => setIsPlaying(true)}
                     onMouseLeave={() => setIsPlaying(false)}

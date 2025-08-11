@@ -48,7 +48,7 @@ const Home = () => {
     }
 
     return (
-        <div className="relative h-screen bg-black overflow-hidden">
+        <div className="relative h-dvh bg-black overflow-hidden">
             <div ref={parentRef} className="h-full lg:hidden-scrollbar overflow-auto snap-y snap-mandatory">
                 <div className="absolute top-4 left-4 z-50">
                     <button onClick={() => setIsMute(!isMute)}>
