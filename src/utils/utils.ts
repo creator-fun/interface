@@ -6,3 +6,9 @@ export const formatNumber = (num: number): string => {
     }
     return num.toString();
 };
+
+export const truncateAddress = (addr: string, startChars: number = 8) => {
+    if (!addr) return '';
+    if (addr.length <= startChars + 3) return addr; // Nếu địa chỉ quá ngắn thì hiển thị nguyên
+    return `${addr.substring(0, startChars)}...`;
+};

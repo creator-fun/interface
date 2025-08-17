@@ -1,33 +1,84 @@
 import { useState } from 'react';
-import { X, ShoppingCart, Star, Heart, Store } from 'lucide-react';
+import { X, Star, Sprout, ChartColumnStacked, Bell, Ellipsis, Youtube, Send, Instagram } from 'lucide-react';
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import PriceChart from '../PriceChart/PriceChart';
 import InfoTokenBuy from '../InfoTokenBuy/InfoTokenBuy';
-
+import { Link } from 'react-router-dom';
+import CopyComponent from '@/components/CopyComponent/CopyComponent';
+import ProgressOrder from '@/components/ProgressOrder/ProgressOrder';
+import { formatNumber } from '@/utils/utils';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import InfoToken from './Components/InfoToken/InfoToken';
+import CommentsToken from './Components/CommentsToken/CommentsToken';
+import HolderToken from './Components/HolderToken/HolderToken';
 interface CartItem {
     id: string;
     name: string;
-    price: number;
-    originalPrice: number;
-    image: string;
-    discount: number;
-    freeShip: boolean;
-    rating: number;
-    reviews: number;
+    subName: string;
+    listedTime: string;
+    listSocialToken: { name: string; url: string }[];
+    listSocialCreator: { name: string; url: string }[];
+    orderPercentage: number;
+    address: string;
+    totalATH: number;
+    currentOrderATH: number;
     description: string;
+    listHasTag: string[];
+    image: string;
+    createdBy: string;
+    listSameToken: {
+        name: string;
+        image: string;
+        symbol: string;
+        orderPercentage: number;
+        totalATH: number;
+        currentOrderATH: number;
+    }[];
 }
 
 const mockCartItem: CartItem = {
     id: '1',
-    name: 'TEE003 Áo thun kẻ Cổ Tàu Henley-Tee chất liệu Cotton basic phong cách Hàn Quốc Unisex MANDO Mens',
-    price: 166000,
-    originalPrice: 250000,
+    name: 'dumb money',
+    subName: 'Gasden',
+    createdBy: 'dumb money',
     image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop',
-    discount: 34,
-    freeShip: true,
-    rating: 4.7,
-    reviews: 7797,
-    description: 'Áo thun kẻ cổ tàu Henley-Tee chất liệu Cotton basic phong cách Hàn Quốc',
+    listedTime: '3',
+    listSocialToken: [
+        { name: 'X', url: 'https://twitter.com/intent/tweet?url=https://www.google.com' },
+        { name: 'YouTube', url: 'https://www.youtube.com/c/YourChannel' },
+        { name: 'Telegram', url: 'https://t.me/share/url?url=https://www.google.com' },
+        { name: 'Instagram', url: 'https://www.instagram.com/yourprofile' },
+    ],
+    listSocialCreator: [
+        { name: 'X', url: 'https://twitter.com/intent/tweet?url=https://www.google.com' },
+        { name: 'YouTube', url: 'https://www.youtube.com/c/YourChannel' },
+        { name: 'Telegram', url: 'https://t.me/share/url?url=https://www.google.com' },
+        { name: 'Instagram', url: 'https://www.instagram.com/yourprofile' },
+    ],
+    address: '0x1234567890123456789012345678901234567890',
+    orderPercentage: 30,
+    totalATH: 1000000,
+    currentOrderATH: 300000,
+    description: 'this is an amazing token for the community, it has a lot of potential and is a great investment',
+    listHasTag: ['tag1', 'tag2', 'tag3'],
+    listSameToken: [
+        {
+            name: 'dumb money',
+            image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop',
+            symbol: 'DM',
+            orderPercentage: 30,
+            totalATH: 1000000,
+            currentOrderATH: 300000,
+        },
+        {
+            name: 'dumb money',
+            image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop',
+            symbol: 'DM',
+            orderPercentage: 30,
+            totalATH: 1000000,
+            currentOrderATH: 300000,
+        },
+    ],
 };
 
 const initialData = [
@@ -46,30 +97,96 @@ const initialData = [
 const CartDrawer = () => {
     const [cartItem] = useState<CartItem>(mockCartItem);
 
-    const formatPrice = (price: number) => {
-        return new Intl.NumberFormat('vi-VN').format(price) + 'đ';
-    };
-
     return (
         <Sheet>
-            <SheetTrigger className="mb-1 bg-black/25 flex items-center gap-2 text-white rounded-full text-xs py-1 px-2 shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300">
+            <SheetTrigger className="mb-1 bg-black/25 flex items-center gap-2 text-white rounded-full text-xs py-1 px-2 shadow-lg hover:shadow-xl transition-all duration-300">
                 <InfoTokenBuy />
             </SheetTrigger>
-            <SheetContent side="bottom" className="w-screen z-[1000]">
-                <div className="bg-white h-[85vh]  w-full overflow-hidden flex flex-col">
-                    <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200">
-                        <SheetClose className="p-1">
-                            <X size={24} className="text-gray-600" />
-                        </SheetClose>
-                        <div className="flex items-center gap-2 text-gray-700">
-                            <span className="text-base">Tìm kiếm:</span>
-                            <span className="text-blue-600 font-medium text-base">áo sọc nam</span>
-                        </div>
-                        <button className="p-1">
-                            <ShoppingCart size={24} className="text-gray-700" />
+            <SheetContent side="bottom" className="w-screen z-[1000] bg-[#15161B] border-none text-white">
+                <div className="h-[85vh] w-full overflow-auto flex flex-col pb-[60px] relative">
+                    <div className="text-right flex items-center justify-end gap-2 text-white border-b-[0.5px] border-b-gray-200 pt-4 pb-2 px-4">
+                        <button>
+                            <ChartColumnStacked />
                         </button>
+                        <button className="rounded-[50%] p-1 border border-white">
+                            <Bell className="w-[16px] h-[16px]" />
+                        </button>
+                        <button className="rounded-[50%] p-1 border border-white">
+                            <Star className="w-[16px] h-[16px]" />
+                        </button>
+                        <button className="rounded-[50%] p-1 border border-white">
+                            <Ellipsis className="w-[16px] h-[16px]" />
+                        </button>
+                        <SheetClose className="rounded-[50%] p-1 border border-white">
+                            <X size={16} />
+                        </SheetClose>
                     </div>
-                    <div className="flex-1 overflow-y-auto bg-[#F5F5F5]">
+                    <div className="flex items-end text-white mb-4 pt-2 gap-2 px-4 relative h-[100px] -mt-[30px]">
+                        <div>
+                            <img
+                                src={cartItem.image}
+                                alt={cartItem.name}
+                                className="block object-center w-[100px] h-[100px] rounded-lg"
+                            />
+                        </div>
+                        <div className="flex-1">
+                            <h2 className="text-xl">{cartItem.name}</h2>
+                            <div className="flex items-center gap-2">
+                                <span className="text-gray-300">{cartItem.subName}</span>
+                                <div className="flex items-center gap-1 text-[#84F0AB]">
+                                    <span>
+                                        <Sprout className="w-[16px] h-[16px]" />
+                                    </span>
+                                    <span className="text-base">{cartItem.listedTime}m</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button className="px-4 py-2 bg-[#84F0AB] rounded-full font-medium text-black">
+                                Share
+                            </button>
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-3 px-4 mb-4">
+                        {cartItem.listSocialToken.map((social) => {
+                            const getSocialIcon = (name: string) => {
+                                switch (name) {
+                                    case 'X':
+                                        return <X className="w-5 h-5" />;
+                                    case 'YouTube':
+                                        return <Youtube className="w-5 h-5" />;
+                                    case 'Telegram':
+                                        return <Send className="w-4 h-4" />;
+                                    case 'Instagram':
+                                        return <Instagram className="w-5 h-5" />;
+                                    default:
+                                        return null;
+                                }
+                            };
+
+                            return (
+                                <Link
+                                    key={social.name}
+                                    to={social.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="gap-2 w-[40px] h-[30px] flex items-center justify-center rounded-lg text-white border border-white transition-colors"
+                                >
+                                    {getSocialIcon(social.name)}
+                                </Link>
+                            );
+                        })}
+                        <CopyComponent address={cartItem.address} />
+                    </div>
+                    <div className="px-4 mb-4">
+                        <h3 className="text-xl mb-2">MaketCap</h3>
+                        <div className="flex items-center gap-4">
+                            <div className="text-base">{formatNumber(cartItem.currentOrderATH)}</div>
+                            <ProgressOrder totalOrderATH={cartItem.totalATH} percentage={cartItem.orderPercentage} />
+                        </div>
+                        <div className="text-base font-medium text-center">{cartItem.orderPercentage}%</div>
+                    </div>
+                    <div className="flex-1">
                         <div className="flex flex-col h-full">
                             <div className="flex-shrink-0">
                                 <PriceChart
@@ -84,67 +201,68 @@ const CartDrawer = () => {
                                 />
                             </div>
 
-                            {/* Product Details */}
-                            <div className="flex-1 flex flex-col bg-white">
-                                <div className="p-4">
-                                    <h3 className="text-sm font-medium text-gray-900 leading-tight mb-2">
-                                        {cartItem.name}
-                                    </h3>
-
-                                    {/* Rating */}
-                                    <div className="flex items-center gap-1 mb-2">
-                                        <Star size={12} className="text-yellow-400 fill-current" />
-                                        <span className="text-xs text-gray-600">
-                                            {cartItem.rating} | {cartItem.reviews.toLocaleString()} lượt đánh giá
-                                        </span>
-                                    </div>
-
-                                    <div className="flex items-center gap-2 mb-3">
-                                        <span className="text-red-600 font-bold text-lg">
-                                            {formatPrice(cartItem.price)}
-                                        </span>
-                                        <span className="text-gray-400 line-through text-sm">
-                                            {formatPrice(cartItem.originalPrice)}
-                                        </span>
-                                        <span className="bg-red-100 text-red-600 text-xs px-1 py-0.5 rounded">
-                                            -{cartItem.discount}%
-                                        </span>
-                                    </div>
-
-                                    {/* Badges */}
-                                    <div className="flex gap-1 mb-3">
-                                        {cartItem.freeShip && (
-                                            <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded">
-                                                🌟 Freeship
-                                            </span>
-                                        )}
-                                        <span className="bg-red-100 text-red-600 text-xs px-2 py-1 rounded">
-                                            Giảm 14%
-                                        </span>
-                                        <span className="bg-orange-100 text-orange-600 text-xs px-2 py-1 rounded">
-                                            Quà miễn phí
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div className="border-t p-4 border-gray-200 mt-auto">
-                                    <div className="flex gap-3">
-                                        <button>
-                                            <Store size={24} className="text-black" />
-                                        </button>
-                                        <button>
-                                            <Heart size={24} className="text-black" />
-                                        </button>
-                                        <button className="bg-gray-100 text-gray-700 p-2 rounded-lg font-medium text-sm flex-1">
-                                            Thêm vào giỏ hàng
-                                        </button>
-
-                                        <button className="bg-red-500 text-white px-6 py-3 rounded-lg font-medium text-sm">
-                                            Mua Ngay
-                                        </button>
-                                    </div>
-                                </div>
+                            <div className="border-t border-gray-600 mt-4">
+                                <Tabs defaultValue="information" className="w-full text-white">
+                                    <TabsList className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700 p-1 rounded-none">
+                                        <TabsTrigger
+                                            value="information"
+                                            className="flex-1 text-gray-300 data-[state=active]:text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:shadow-lg transition-all duration-300 rounded-lg py-2.5 px-4 font-medium hover:text-white hover:bg-gray-700/50"
+                                        >
+                                            Information
+                                        </TabsTrigger>
+                                        <TabsTrigger
+                                            value="comments"
+                                            className="flex-1 text-gray-300 data-[state=active]:text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:shadow-lg transition-all duration-300 rounded-lg py-2.5 px-4 font-medium hover:text-white hover:bg-gray-700/50"
+                                        >
+                                            Comments
+                                        </TabsTrigger>
+                                        <TabsTrigger
+                                            value="holders"
+                                            className="flex-1 text-gray-300 data-[state=active]:text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:shadow-lg transition-all duration-300 rounded-lg py-2.5 px-4 font-medium hover:text-white hover:bg-gray-700/50"
+                                        >
+                                            Holders
+                                        </TabsTrigger>
+                                    </TabsList>
+                                    <TabsContent
+                                        value="information"
+                                        className="px-4 pt-2 pb-4 bg-gray-800/30 border border-gray-700/50 rounded-none"
+                                    >
+                                        <InfoToken
+                                            listHasTag={cartItem.listHasTag}
+                                            listSocialCreator={cartItem.listSocialCreator}
+                                            description={cartItem.description}
+                                            listSameToken={cartItem.listSameToken}
+                                        />
+                                    </TabsContent>
+                                    <TabsContent
+                                        value="comments"
+                                        className="p-4 bg-gray-800/30 border border-gray-700/50"
+                                    >
+                                        <CommentsToken />
+                                    </TabsContent>
+                                    <TabsContent
+                                        value="holders"
+                                        className="p-4 bg-gray-800/30 border border-gray-700/50"
+                                    >
+                                        <HolderToken />
+                                    </TabsContent>
+                                </Tabs>
                             </div>
+                        </div>
+                    </div>
+                    <div className="fixed z-[100] flex items-center justify-between px-4 py-2.5 h-[60px] bottom-0 left-0 right-0 bg-black/90">
+                        <div className="flex items-center justify-center gap-2">
+                            <button className="text-white border border-white px-4 py-1.5 rounded-md h-[40px]">
+                                Join chat
+                            </button>
+                            <button className="text-white border border-white px-4 py-1.5 rounded-md h-[40px]">
+                                Send
+                            </button>
+                        </div>
+                        <div className="flex items-center justify-center border border-white rounded-md h-[40px]">
+                            <button className="text-white px-4 py-1.5">Quick Buy</button>
+                            <div className="w-[1px] h-full bg-white"></div>
+                            <button className="text-white px-4 py-1.5">Buy</button>
                         </div>
                     </div>
                 </div>
