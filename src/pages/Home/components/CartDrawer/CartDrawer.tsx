@@ -203,7 +203,7 @@ const CartDrawer = () => {
 
                             <div className="border-t border-gray-600 mt-4">
                                 <Tabs defaultValue="information" className="w-full text-white">
-                                    <TabsList className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700 p-1 rounded-none">
+                                    <TabsList className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700 p-1 rounded-none border-r-none border-l-none">
                                         <TabsTrigger
                                             value="information"
                                             className="flex-1 text-gray-300 data-[state=active]:text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:shadow-lg transition-all duration-300 rounded-lg py-2.5 px-4 font-medium hover:text-white hover:bg-gray-700/50"
@@ -225,7 +225,7 @@ const CartDrawer = () => {
                                     </TabsList>
                                     <TabsContent
                                         value="information"
-                                        className="px-4 pt-2 pb-4 bg-gray-800/30 border border-gray-700/50 rounded-none"
+                                        className="px-4 pt-2 pb-4 bg-gray-800/30 border-t border-t-gray-700/50 rounded-none"
                                     >
                                         <InfoToken
                                             listHasTag={cartItem.listHasTag}

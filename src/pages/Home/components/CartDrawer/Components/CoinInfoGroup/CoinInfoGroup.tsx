@@ -14,7 +14,7 @@ interface CoinInfoGroupProps {
 }
 const CoinInfoGroup = ({ name, image, symbol, orderPercentage, totalATH, currentOrderATH }: CoinInfoGroupProps) => {
     return (
-        <div className="px-4 py-3 rounded-lg bg-[#2E313A] mt-4 flex-shrink-0">
+        <div className="px-4 py-3 max-w-[250px] rounded-lg bg-[#2E313A] mt-4 flex-shrink-0">
             <div className="flex items-end gap-2 mb-2">
                 <img src={image} alt="img" className="w-12 h-12 rounded-lg" />
                 <div>
