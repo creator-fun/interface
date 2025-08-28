@@ -2,6 +2,7 @@ import useRouterElements from './useRouterElements';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Toaster } from '@/components/ui/sonner';
+import "./utils/appkit";
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {

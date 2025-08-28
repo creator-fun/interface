@@ -6,6 +6,7 @@ import MainLayout from './layouts/MainLayout/MainLayout';
 import LivestreamHome from './pages/LivestreamHome/LivestreamHome';
 import HostLive from './pages/HostLive/HostLive';
 import WatchLive from './pages/WatchLive/WatchLive';
+import Profile from './pages/Profile/Profile';
 
 const Home = lazy(() => import('./pages/Home/Home'));
 
@@ -38,6 +39,14 @@ const useRouterElements = () => {
                             element: (
                                 <Suspense>
                                     <Create />
+                                </Suspense>
+                            ),
+                        },
+                        {
+                            path: path.profile,
+                            element: (
+                                <Suspense>
+                                    <Profile />
                                 </Suspense>
                             ),
                         },
