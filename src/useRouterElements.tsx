@@ -3,6 +3,10 @@ import { lazy, Suspense } from 'react';
 import path from './constants/path';
 import Create from './pages/Create/Create';
 import MainLayout from './layouts/MainLayout/MainLayout';
+import LivestreamHome from './pages/LivestreamHome/LivestreamHome';
+import HostLive from './pages/HostLive/HostLive';
+import WatchLive from './pages/WatchLive/WatchLive';
+import Profile from './pages/Profile/Profile';
 
 const Home = lazy(() => import('./pages/Home/Home'));
 
@@ -38,7 +42,37 @@ const useRouterElements = () => {
                                 </Suspense>
                             ),
                         },
+                        {
+                            path: path.profile,
+                            element: (
+                                <Suspense>
+                                    <Profile />
+                                </Suspense>
+                            ),
+                        },
                     ],
+                },
+                {
+                    path: path.livestreamHome,
+                    element: (
+                        <Suspense>
+                            <LivestreamHome />
+                        </Suspense>
+                    ),
+                }, {
+                    path: path.hostLive,
+                    element: (
+                        <Suspense>
+                            <HostLive />
+                        </Suspense>
+                    ),
+                }, {
+                    path: path.watchLive,
+                    element: (
+                        <Suspense>
+                            <WatchLive />
+                        </Suspense>
+                    ),
                 },
             ],
         },

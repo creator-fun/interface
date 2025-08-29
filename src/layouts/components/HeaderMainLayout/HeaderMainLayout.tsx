@@ -39,7 +39,7 @@ const HeaderMainLayout = () => {
                         <span className="text-current text-xs">Inbox</span>
                     </NavLink>
                     <NavLink
-                        to="/test"
+                        to="/profile"
                         className={({ isActive }) =>
                             'flex flex-col items-center space-y-1 ' + (isActive ? 'text-white' : 'text-white/60')
                         }
