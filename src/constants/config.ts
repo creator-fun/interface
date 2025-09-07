@@ -1,6 +1,5 @@
 const config = {
-    baseUrl: 'https://backendtiktokpump.vuonghuuhung.com',
-    // baseUrl: 'http://localhost:8080',
+    baseUrl: import.meta.env.VITE_GO_API ,
     maxSizeUploadAvatar: 26214400,
 };
 
