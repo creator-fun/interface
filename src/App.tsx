@@ -7,6 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 function App() {
     const routeElements = useRouterElements();
+
     return (
         <div>
             {routeElements}

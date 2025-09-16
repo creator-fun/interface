@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useAppKit, useAppKitAccount, useAppKitProvider } from "@reown/appkit/react";
-import type { Provider } from "@reown/appkit-adapter-solana/react";
+import { useAppKit, useAppKitAccount, useAppKitEvents, useAppKitProvider } from "@reown/appkit/react";
+import { useAppKitConnection, type Provider } from "@reown/appkit-adapter-solana/react";
 import type { authApi, NonceReq, VerifyReq } from "@/services/authApi";
 import type { SolanaSignInInputWithRequiredFields } from "@solana/wallet-standard-util";
 import { useAuthStore } from "@/stores/auth.store";
@@ -72,8 +72,12 @@ export function useSolanaSignIn(opts: UseAppKitPhantomLoginOptions) {
 
     // AppKit hooks
     const { open } = useAppKit();
+    const { connection } = useAppKitConnection();
     const { address, isConnected, status } = useAppKitAccount({ namespace: "solana" });
+    
     const { walletProvider } = useAppKitProvider<Provider>("solana");
+
+    console.log("current address", { connection })
 
     // local state
     const [step, setStep] = useState<LoginStep>(1);
