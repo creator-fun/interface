@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useAppKit, useAppKitAccount, useAppKitEvents, useAppKitProvider } from "@reown/appkit/react";
+import { useAppKit, useAppKitAccount, useAppKitProvider } from "@reown/appkit/react";
 import { useAppKitConnection, type Provider } from "@reown/appkit-adapter-solana/react";
 import type { authApi, NonceReq, VerifyReq } from "@/services/authApi";
 import type { SolanaSignInInputWithRequiredFields } from "@solana/wallet-standard-util";
@@ -59,7 +59,7 @@ export interface UseAppKitPhantomLoginOptions {
 export function useSolanaSignIn(opts: UseAppKitPhantomLoginOptions) {
     const {
         messages,
-        autoPrefetchAccount = true,
+        // autoPrefetchAccount = true,
         onSuccess,
         auth,
         buildSignMessageText,
