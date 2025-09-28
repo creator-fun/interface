@@ -200,7 +200,7 @@ const VideoItem = ({ video }: VideoItemProps) => {
 
             {/* Bottom Content */}
             <div className="absolute bottom-4 left-4 right-20 z-20">
-                <CartDrawer />
+                <CartDrawer token={video.token} />
                 <div className="space-y-3">
                     <div className="flex items-center space-x-2">
                         <span className="text-white font-bold text-lg">{video.username}</span>

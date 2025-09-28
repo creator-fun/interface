@@ -1,3 +1,5 @@
+import type { TokenInfo } from '@/queries/useGetTokenInfo';
+
 export interface VideoData {
     id: string;
     username: string;
@@ -14,6 +16,8 @@ export interface VideoData {
     isLiked: boolean;
     isBookmarked: boolean;
     isFollowing: boolean;
+    tokenAddress: string;
+    token: TokenInfo;
 }
 
 export interface VideoResponse {

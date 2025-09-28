@@ -62,14 +62,12 @@ import http from '@/utils/http';
 
 export const videoApi = {
     uploadVideo(data: FormData) {
-        return http.post('/upload', data,
-            {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-                withCredentials: true
-            }
-        );
+        return http.post('/upload', data, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+            // withCredentials: true,
+        });
     },
     getVideos(cursor: number, params: VideoFilters) {
         return http.get<VideoResponse>(`/videos`, { params: { ...params, cursor } });

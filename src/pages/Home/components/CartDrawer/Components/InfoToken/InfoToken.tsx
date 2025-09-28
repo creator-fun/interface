@@ -14,7 +14,7 @@ const InfoToken: FC<{
         totalATH: number;
         currentOrderATH: number;
     }[];
-}> = ({ listHasTag, listSocialCreator, description, listSameToken }) => {
+}> = ({ listHasTag, description, listSameToken }) => {
     return (
         <div className="text-gray-400">
             <div className="text-xl mb-4">Description: {description}</div>
@@ -31,17 +31,6 @@ const InfoToken: FC<{
                             </div>
                         );
                     })}
-            </div>
-            <div className="mt-4">
-                <h4 className="text-xl text-white mb-2">Coin Creator</h4>
-                <CardUserInfo
-                    title="Dumb Money"
-                    subTitle="dumb money"
-                    avatar="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop"
-                    buttonName="Follow"
-                    onClick={() => {}}
-                    listSocial={listSocialCreator}
-                />
             </div>
             <div className="mt-4">
                 <h4 className="text-xl text-white mb-2">Community</h4>
